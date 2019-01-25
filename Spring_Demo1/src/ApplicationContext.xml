@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd"
+	 xmlns:context="http://www.springframework.org/schema/context"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xmlns="http://www.springframework.org/schema/beans">
+	 
+	 <!--  load properties file -->
+	 <context:property-placeholder location="classpath:sport.properties" />
+
+	<!--  
+		Bean to show logging Messages like the ones shown in the tutorial videos
+	 -->
+	<bean id="myLoggerConfig" class="com.luv2code.springdemo.MyLoggerConfig" init-method="initLogger">
+    	<property name="rootLoggerLevel" value="FINE" />
+    	<property name="printedLoggerLevel" value="FINE"/>
+    </bean>
+    
+    <bean id="myFortuneService"
+    	class="com.luv2code.springdemo.RandomFortuneService">
+    </bean>
+	
+	<!--  Bean using constructor injection -->
+	<bean id="myConstructorCoach"
+		class="com.luv2code.springdemo.MmaCoach">
+		<!-- set up constructor injection -->
+		<constructor-arg ref="myFortuneService"/>
+	</bean>
+	
+	<!-- Bean using setter injection -->
+	<bean id="mySetterCoach"
+		class="com.luv2code.springdemo.CricketCoach">
+		
+		<property name="fortuneService" ref="myFortuneService"></property>
+		<property name="emailAddress" value="${foo.email}"/>
+		<property name="team" value="${foo.team}"/>
+		
+	</bean>
+</beans>

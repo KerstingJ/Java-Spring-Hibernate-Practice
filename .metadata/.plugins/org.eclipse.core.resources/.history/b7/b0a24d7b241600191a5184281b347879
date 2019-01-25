@@ -1,0 +1,22 @@
+package com.luv2code.jdbc;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "student")
+public class Student {
+	
+	@Id
+	@Column("id")
+	private int id;
+	
+	@Column("first_name")
+	private String firstName;
+	
+	@Column("last_name")
+	private String lastName;
+
+}

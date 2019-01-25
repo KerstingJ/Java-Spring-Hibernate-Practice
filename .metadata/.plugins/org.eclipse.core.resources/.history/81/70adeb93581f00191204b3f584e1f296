@@ -1,0 +1,61 @@
+package com.luv2code.hibernate.demo;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Instructor;
+import com.luv2code.hibernate.demo.entity.InstructorDetail;
+
+public class DeleteDemo {
+
+	public static void main(String[] args) {
+		
+		//get session factory
+		//this could be a bean?
+		SessionFactory factory = new Configuration()
+				.configure("hibernate.cfg.xml")
+				.addAnnotatedClass(Instructor.class)
+				.addAnnotatedClass(InstructorDetail.class)
+				.buildSessionFactory();
+		
+		//get session
+		Session session = factory.openSession();
+		
+		try {
+			//start transaction
+			System.out.println("Starting transaction");
+			session.beginTransaction();
+			
+			//get instructor by ID
+			int theId = 1;
+			Instructor tempIns = session.get(Instructor.class, theId);
+			System.out.println(tempIns);
+			
+			//Delete Instructor
+			if (tempInstructor != null) {
+				System.out.println("deleting instructor");
+				
+				session.delete(tempIns);
+			}
+			
+			//commit transaction
+			System.out.println("commiting changes");
+			session.getTransaction().commit();
+			
+			System.out.println("Done! everything went as planned");
+				
+		} finally {
+			
+			System.out.println("closing session factory");
+			// close the factory
+			
+			session.close();
+			
+			factory.close();
+			
+		}
+
+	}
+
+}

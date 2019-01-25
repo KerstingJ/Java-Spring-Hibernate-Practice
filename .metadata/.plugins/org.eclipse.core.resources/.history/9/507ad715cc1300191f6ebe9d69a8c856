@@ -1,0 +1,24 @@
+package com.luv2code.springdemo.mvc;
+
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@RequestMapping("/customer")
+public class CustomerController {
+	
+
+	@RequestMapping("showForm")
+	public String showForm(Model theModel) {
+		
+		theModel.addAttribute("customer", new Customer());
+		
+		return "customer-form";
+	}
+	
+	//processForm
+	@RequestMapping("processForm")
+	public String processForm() {
+		
+		return null;
+	}
+}

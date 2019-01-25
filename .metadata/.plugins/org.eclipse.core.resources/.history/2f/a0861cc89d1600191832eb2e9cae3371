@@ -1,0 +1,36 @@
+package com.luv2code.hibernate.demo;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Student;
+
+public class QueryStudentDemo {
+
+	public static void main(String[] args) {
+		SessionFactory factory = new Configuration()
+				.configure("hibernate.cfg.xml")
+				.addAnnotatedClass(Student.class)
+				.buildSessionFactory();
+		
+		Session session = factory.openSession();
+		
+		try {
+			
+			List<Student> students = session.createQuery("from Student s WHERE s.lastname='Gotti' OR s.firstname='kevin'").getResultList();
+			
+			for (Student s: students) {
+				System.out.println(s);
+			}
+			
+		} finally {
+			session.close();
+			factory.close();
+		}
+
+	}
+
+}

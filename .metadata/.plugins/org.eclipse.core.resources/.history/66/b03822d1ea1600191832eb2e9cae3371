@@ -1,0 +1,5 @@
+package com.hb.practice.entity;
+
+public class Employee {
+
+}

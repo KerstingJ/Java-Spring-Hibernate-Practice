@@ -1,0 +1,55 @@
+package com.luv2code.hibernate.demo;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2code.hibernate.demo.entity.Student;
+
+public class QueryStudentDemo {
+
+	public static void main(String[] args) {
+		SessionFactory factory = new Configuration()
+				.configure("hibernate.cfg.xml")
+				.addAnnotatedClass(Student.class)
+				.buildSessionFactory();
+		
+		Session session = factory.openSession();
+		
+		try {
+			
+			int studentID = 3;
+			
+			session.beginTransaction();
+			
+			System.out.println("getting student with id: " + studentID);
+			Student myStudent = session.get(Student.class, studentID);
+			
+			System.out.println("got student: " + myStudent);
+			
+			System.out.println("Changing student name to Scooby");
+			myStudent.setFirstName("Scooby");
+			
+			System.out.println("Printing Student:\n" + myStudent);
+			
+			session.getTransaction().commit();
+			
+			
+		} finally {
+			
+			session.close();
+			factory.close();
+			
+		}
+
+	}
+
+	private static void showStudents(List<Student> students) {
+		for (Student s: students) {
+			System.out.println(s);
+		}
+	}
+
+}
