@@ -1,6 +1,5 @@
 package com.luv2code.hibernate.demo;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -8,18 +7,11 @@ import org.hibernate.cfg.Configuration;
 import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
+import com.luv2code.hibernate.demo.entity.Review;
 
-public class EagerLoadingDemo {
-	
-	/*
-	 * 
-	 * change Instructor.courses load type and step through code to see difference
-	 * Eager Vs Lazy
-	 * 
-	 */
+public class DeleteCourseAndReviewDemo2 {
 
 	public static void main(String[] args) {
-		
 		//get session factory
 		//this could be a bean?
 		SessionFactory factory = new Configuration()
@@ -27,6 +19,7 @@ public class EagerLoadingDemo {
 				.addAnnotatedClass(Instructor.class)
 				.addAnnotatedClass(InstructorDetail.class)
 				.addAnnotatedClass(Course.class)
+				.addAnnotatedClass(Review.class)
 				.buildSessionFactory();
 		
 		//get session
@@ -37,21 +30,14 @@ public class EagerLoadingDemo {
 			System.out.println("Starting transaction");
 			session.beginTransaction();
 			
-			//create objects
-			Instructor gotti = session.get(Instructor.class, 3);
-			System.out.println(gotti);
+			//create a course
+			Course tempCourse = session.get(Course.class, 10);
 			
-			//List<Course> courses = gotti.getCourses();
-			//for lazily loaded items you want outside of your session you must initialize them
-			Hibernate.initialize(gotti.getCourses());
-	
+			session.delete(tempCourse);
+			
 			//commit transaction
 			System.out.println("commiting changes");
 			session.getTransaction().commit();
-			
-			session.close();
-
-			System.out.println(gotti.getCourses());
 			
 			System.out.println("Done! everything went as planned");
 				
@@ -67,5 +53,4 @@ public class EagerLoadingDemo {
 		}
 
 	}
-
 }
