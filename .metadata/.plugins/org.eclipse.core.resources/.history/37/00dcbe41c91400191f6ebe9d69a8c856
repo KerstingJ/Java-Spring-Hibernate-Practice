@@ -1,5 +1,0 @@
-package com.luv2code.sprinddemo.mvc.validation;
-
-public class CourseCodeConstraintValidator {
-
-}

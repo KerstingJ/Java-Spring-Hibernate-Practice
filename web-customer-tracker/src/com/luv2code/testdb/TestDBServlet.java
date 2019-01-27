@@ -42,7 +42,7 @@ public class TestDBServlet extends HttpServlet {
 			
 			Connection myConn = DriverManager.getConnection(jdbcUrl, user, pass);
 			
-			out.println("connected Succesfully");
+			out.println("\nconnected Succesfully");
 			
 			myConn.close();
 			
