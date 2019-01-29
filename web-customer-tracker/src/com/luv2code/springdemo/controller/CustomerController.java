@@ -75,4 +75,15 @@ public class CustomerController {
 		return "redirect:/customer/list";
 	}
 	
+	@PostMapping("search")
+	public String searchCustomers(@RequestParam("theSearch") String theSearch, Model theModel) {
+		
+		List<Customer> customers = customerService.searchCustomers(theSearch);
+		
+		//add Customer to Spring Model
+		theModel.addAttribute("customers", customers);
+		
+		return "list-customers";
+	}
+	
 }
