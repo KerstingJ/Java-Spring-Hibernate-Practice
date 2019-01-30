@@ -11,39 +11,28 @@ import org.springframework.stereotype.Component;
 public class MyDemoLoggingAspect {
 	
 	//PointCut Declerations
-	@Pointcut("execution(* *(..))")
-	public void anyMethod() {};
-	
 	@Pointcut("execution(public * com.luv2code.aopdemo.dao.*.*(..))")
 	public void anyInDAOPackage() {};
 	
-	@Pointcut("execution(* *add*(..))")
-	public void anyAddMethods() {};
+	@Pointcut("execution(public * com.luv2code.aopdemo.dao.*.get*(..))")
+	public void getMethods() {};
+	
+	@Pointcut("execution(public * com.luv2code.aopdemo.dao.*.set*(..))")
+	public void setMethods() {};
+	
+	@Pointcut("anyInDAOPackage() && !(getMethods() || setMethods())")
+	public void inDaoPackageNotGetterSetter() {}
 	
 	//Aspect Advice
-	@Before("anyMethod()")
-	public void beforeAnyMethods() {
-		System.out.println("=====>>> @Before any Method");
+	@Before("inDaoPackageNotGetterSetter()")
+	public void forDaoPackageNotGetterSetter() {
+		System.out.println("@Before any method in dao not getter or setter");
 	}
 	
-	@Before("anyAddMethods()")
-	public void beforeAddMethods() {
-		System.out.println("=====>>> @Before any Add Methods");
+	@After("anyInDAOPackage()")
+	public void forAnyDaoPackage() {
+		System.out.println("@After any method in dao\n\n");
 	}
-	
-	@Before("anyInDAOPackage()")
-	public void beforeAddAccountAdvice() {
-		System.out.println("=====>>> @Before advice on any method in DAO package");
-	}
-	
-	@After("execution(public * com.luv2code.aopdemo.dao.MemberDAO.add*(..))")
-	public void afterMemberDAOAddAdvice() {
-		System.out.println("=====>>> @After advice on any method in MemberDAO.class starting with add");
-	}
-	
-	@After("anyMethod()")
-	public void afterVoidMethod() {
-		System.out.println("=====>>> @After any methods that return void");
-	}
+
 
 }

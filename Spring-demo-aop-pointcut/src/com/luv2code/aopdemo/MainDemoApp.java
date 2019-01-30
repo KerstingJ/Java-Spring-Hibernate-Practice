@@ -14,18 +14,19 @@ public class MainDemoApp {
 				new AnnotationConfigApplicationContext(DemoConfig.class);
 		
 		//get the bean from spring container
-		AccountDAO accountDAO = context.getBean("accountDAO", AccountDAO.class);
 		MemberDAO memberDAO = context.getBean("memberDAO", MemberDAO.class);
 		
 		Account a = new Account();
 		
 		// call the business method
-		accountDAO.addAccount(a);
-		accountDAO.addAccountant();
-		accountDAO.addingStuff();
-		
-		memberDAO.addAccount(a, "a string");
-		memberDAO.addMember();
+		memberDAO.setId(1);
+		memberDAO.setName("josh");
+		memberDAO.setEmail("josh@Email.com");
+		memberDAO.setCode(12345);
+		memberDAO.doSomething();
+		memberDAO.doSomethingWithGetSet();
+		System.out.println(memberDAO.getEmail() + "\n\n");
+		System.out.println(memberDAO.getCode() + "\n\n");
 		
 		//close context
 		context.close();
