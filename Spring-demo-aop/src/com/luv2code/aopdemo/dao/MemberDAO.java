@@ -2,10 +2,12 @@ package com.luv2code.aopdemo.dao;
 
 import org.springframework.stereotype.Component;
 
+import com.luv2code.aopdemo.Account;
+
 @Component
 public class MemberDAO {
 	
-	public void addAccount() {
+	public void addAccount(Account a, String s) {
 		System.out.println(getClass() + ": adding account");
 	}
 	

@@ -2,10 +2,12 @@ package com.luv2code.aopdemo.dao;
 
 import org.springframework.stereotype.Component;
 
+import com.luv2code.aopdemo.Account;
+
 @Component
 public class AccountDAO {
 	
-	public void addAccount() {
+	public void addAccount(Account account) {
 		System.out.println(getClass() + ": Doing DB Work Adding Account");
 	}
 	
@@ -13,7 +15,9 @@ public class AccountDAO {
 		System.out.println(getClass() + ": adding accountant to account");
 	}
 	
-	public void addingStuff() {
+	public boolean addingStuff() {
 		System.out.println(getClass() + ": adding stuffff");
+		
+		return true;
 	}
 }
