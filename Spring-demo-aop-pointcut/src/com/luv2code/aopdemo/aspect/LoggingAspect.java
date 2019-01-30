@@ -9,16 +9,16 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-@Order(1)
-public class LoggingAspect extends AbstractAspect{
+@Order(2)
+public class LoggingAspect {
 	
 	//Aspect Advice
-	@Before("inDaoPackageNotGetterSetter()")
+	@Before("com.luv2code.aopdemo.aspect.AbstractAspect.inDaoPackageNotGetterSetter()")
 	public void forDaoPackageNotGetterSetter() {
 		System.out.println("@Before any method in dao not getter or setter");
 	}
 	
-	@After("inDaoPackageNotGetterSetter()")
+	@After("com.luv2code.aopdemo.aspect.AbstractAspect.inDaoPackageNotGetterSetter()")
 	public void apiAnalytics() {
 		System.out.println("@After api analytics");
 	}

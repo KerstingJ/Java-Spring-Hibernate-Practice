@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
-@Order(2)
-public class CloudAspect extends AbstractAspect {
+@Order(1)
+public class CloudAspect extends AbstractAspect{
 	
 	@After("anyInDAOPackage()")
 	public void forAnyDaoPackage() {
